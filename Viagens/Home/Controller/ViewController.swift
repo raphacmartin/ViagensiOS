@@ -32,14 +32,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let viagemAtual = listaViagens[indexPath.row]
         celula.labelTitulo?.text = viagemAtual.titulo
         celula.labelQtdDias?.text = "\(viagemAtual.quantidadeDeDias) dias"
-        celula.labelPreco?.text = viagemAtual.preco
+        celula.labelPreco?.text = "R$ \(viagemAtual.preco)"
         celula.imagemViagem.image = UIImage(named: viagemAtual.caminhoDaImagem)
+        celula.imagemViagem.layer.cornerRadius = 10
+        celula.imagemViagem.layer.masksToBounds = true
         
         return celula
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 175
+        return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone ? 175 : 260
     }
 
 }
