@@ -15,8 +15,8 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
     let cellsPerRow: CGFloat = 2.0
     let marginBetweenCells: CGFloat = 15.0
     
-    let listaComTodasViagens = ViagemDAO().retornaTodasAsViagens()
-    var listaViagens = [Viagem]()
+    let listaComTodasViagens = PacoteViagemDAO().retornaTodasAsViagens()
+    var listaViagens = [PacoteViagem]()
     
     override func viewDidLoad() {
         listaViagens = listaComTodasViagens
@@ -34,11 +34,11 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let celulaPacote = collectionView.dequeueReusableCell(withReuseIdentifier: "celulaPacote", for: indexPath) as! PacoteViagemCollectionViewCell
         
-        let viagem = listaViagens[indexPath.row]
-        celulaPacote.imagemViagem.image = UIImage(named: viagem.caminhoDaImagem)
-        celulaPacote.labelTitulo.text = viagem.titulo
-        celulaPacote.labelQuantidadeDias.text = "\(viagem.quantidadeDeDias) dias"
-        celulaPacote.labelPreco.text = "R$ \(viagem.preco)"
+        let pacoteAtual = listaViagens[indexPath.row]
+        celulaPacote.labelTitulo.text = pacoteAtual.viagem.titulo
+        celulaPacote.labelQuantidadeDias.text = "\(pacoteAtual.viagem.quantidadeDeDias) dias"
+        celulaPacote.labelPreco.text = "R$ \(pacoteAtual.viagem.preco)"
+        celulaPacote.imagemViagem.image = UIImage(named: pacoteAtual.viagem.caminhoDaImagem)
         
         celulaPacote.layer.borderWidth = 0.5
         celulaPacote.layer.borderColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1).cgColor
@@ -61,8 +61,11 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
         
+        let pacote = listaViagens[indexPath.item]
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(identifier: "detalhes") as! DetalhesViagensViewController
+        controller.pacoteSelecionado = pacote
         self.present(controller, animated: true)
     }
     
@@ -71,7 +74,7 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
             listaViagens = listaComTodasViagens
         } else {
             let filtroListaViagem = NSPredicate(format: "titulo contains %@", searchText)
-            let listaFiltrada = (listaComTodasViagens as NSArray).filtered(using: filtroListaViagem) as! [Viagem]
+            let listaFiltrada = (listaComTodasViagens as NSArray).filtered(using: filtroListaViagem) as! [PacoteViagem]
             listaViagens = listaFiltrada
         }
         self.labelContadorPacotes.text = atualizaContadorLabel()
