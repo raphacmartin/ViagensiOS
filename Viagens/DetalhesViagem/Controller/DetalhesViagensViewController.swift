@@ -55,6 +55,13 @@ class DetalhesViagensViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @IBAction func botaoFinalizarCompra(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(identifier: "confirmacaoPagamento") as! ConfirmacaoPagamentoViewController
+        controller.pacoteComprado = pacoteSelecionado
+        present(controller, animated: true)
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
