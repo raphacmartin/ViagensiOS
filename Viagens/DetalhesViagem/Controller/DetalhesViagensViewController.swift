@@ -52,7 +52,7 @@ class DetalhesViagensViewController: UIViewController {
     }
     
     @IBAction func voltar(_ sender: Any) {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func botaoFinalizarCompra(_ sender: UIButton) {

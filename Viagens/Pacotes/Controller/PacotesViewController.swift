@@ -12,7 +12,8 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet weak var pesquisarViagens: UISearchBar!
     @IBOutlet weak var labelContadorPacotes: UILabel!
     
-    let cellsPerRow: CGFloat = 2.0
+    let cellsPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 2 : 3
+    let cellHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 160 : 2500
     let marginBetweenCells: CGFloat = 15.0
     
     let listaComTodasViagens = PacoteViagemDAO().retornaTodasAsViagens()
@@ -35,23 +36,15 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
         let celulaPacote = collectionView.dequeueReusableCell(withReuseIdentifier: "celulaPacote", for: indexPath) as! PacoteViagemCollectionViewCell
         
         let pacoteAtual = listaViagens[indexPath.row]
-        celulaPacote.labelTitulo.text = pacoteAtual.viagem.titulo
-        celulaPacote.labelQuantidadeDias.text = "\(pacoteAtual.viagem.quantidadeDeDias) dias"
-        celulaPacote.labelPreco.text = "R$ \(pacoteAtual.viagem.preco)"
-        celulaPacote.imagemViagem.image = UIImage(named: pacoteAtual.viagem.caminhoDaImagem)
-        
-        celulaPacote.layer.borderWidth = 0.5
-        celulaPacote.layer.borderColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1).cgColor
-        celulaPacote.layer.cornerRadius = 8
-        let width: CGFloat = getCellWidth(for: collectionView)
-        celulaPacote.larguraImagemConstraint.constant = width
+
+        celulaPacote.configuraCelula(pacoteViagem: pacoteAtual, largura: getCellWidth(for: collectionView))
         
         return celulaPacote
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = getCellWidth(for: collectionView)
-        return CGSize(width: width, height: 160)
+        return CGSize(width: width, height: cellHeight)
     }
     
     func getCellWidth(for collectionView: UICollectionView) -> CGFloat {
@@ -73,7 +66,7 @@ class PacotesViewController : UIViewController, UICollectionViewDataSource, UICo
         if searchText == "" {
             listaViagens = listaComTodasViagens
         } else {
-            let filtroListaViagem = NSPredicate(format: "titulo contains %@", searchText)
+            let filtroListaViagem = NSPredicate(format: "viagem.titulo contains %@", searchText)
             let listaFiltrada = (listaComTodasViagens as NSArray).filtered(using: filtroListaViagem) as! [PacoteViagem]
             listaViagens = listaFiltrada
         }
