@@ -59,7 +59,7 @@ class DetalhesViagensViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(identifier: "confirmacaoPagamento") as! ConfirmacaoPagamentoViewController
         controller.pacoteComprado = pacoteSelecionado
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc func dismissKeyboard() {

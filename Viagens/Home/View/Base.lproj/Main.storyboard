@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PpN-zR-ox5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2lu-OK-BHb">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -9,10 +9,27 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="mPX-dX-6KH">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="2lu-OK-BHb" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NXG-1w-Itb">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="PpN-zR-ox5" kind="relationship" relationship="rootViewController" id="bt5-QV-6P2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jQL-T1-asz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1120" y="81"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="JzI-Xz-7o2">
             <objects>
                 <tabBarController id="PpN-zR-ox5" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="qrS-Ml-jZu"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WC6-n2-Lkn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -223,7 +240,7 @@
                             <constraint firstItem="qly-dr-iFm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yVb-Rg-PyF"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Procurar" id="91w-Iu-hvn"/>
+                    <tabBarItem key="tabBarItem" title="Procurar" image="icon_package.png" id="91w-Iu-hvn"/>
                     <connections>
                         <outlet property="tableView" destination="qly-dr-iFm" id="eAP-5Q-7Lm"/>
                         <outlet property="viewHoteis" destination="sUF-kE-ems" id="8KT-Es-eXo"/>
@@ -251,7 +268,7 @@
                                         <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="6gj-fL-SKv">
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="6gj-fL-SKv">
                                         <rect key="frame" x="0.0" y="36.000000000000014" width="398" height="224.33333333333337"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
@@ -343,7 +360,7 @@
                             <constraint firstItem="ere-RU-WPA" firstAttribute="top" secondItem="uzX-Eu-VBZ" secondAttribute="top" constant="12" id="xcm-Jl-568"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Pacotes" id="hCa-OV-Qzr"/>
+                    <tabBarItem key="tabBarItem" title="Pacotes" image="icon_search.png" id="hCa-OV-Qzr"/>
                     <connections>
                         <outlet property="colecaoPacotesViagem" destination="Rsq-lH-kb3" id="Uzr-75-Kfk"/>
                         <outlet property="labelContadorPacotes" destination="3yt-Ar-edb" id="dxw-Me-0uq"/>
@@ -698,7 +715,7 @@
                                         <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8vw-1y-Ovx">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8vw-1y-Ovx">
                                         <rect key="frame" x="0.0" y="28.333333333333343" width="394" height="130"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="130" id="Ta9-SA-qqf"/>
@@ -750,6 +767,9 @@
                                         <state key="normal" title="voltar para home">
                                             <color key="titleColor" red="0.96862745100000003" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="botaoVoltarHome:" destination="GM5-FO-9Hn" eventType="touchUpInside" id="Het-bI-HTE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -766,6 +786,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="botaoVoltarPraHome" destination="N9y-mP-ds4" id="cEt-tK-aC6"/>
                         <outlet property="imagemPacoteViagem" destination="8vw-1y-Ovx" id="mGh-bh-Rb1"/>
                         <outlet property="labelDataPacoteViagem" destination="r8H-KB-QIt" id="tKg-3w-oDn"/>
                         <outlet property="labelDescricaoPacoteViagem" destination="YbU-gS-aRK" id="3de-pY-Vow"/>
@@ -784,6 +805,8 @@
         <image name="icon_back.png" width="50" height="50"/>
         <image name="icon_breakfast.png" width="50" height="50"/>
         <image name="icon_hotel.png" width="50" height="50"/>
+        <image name="icon_package.png" width="25" height="25"/>
+        <image name="icon_search.png" width="25" height="25"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
